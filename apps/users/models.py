@@ -18,6 +18,10 @@ def phone_is_valid(value: str):
 
 
 class User(BaseModel, AbstractUser):
+    last_login = None
+    date_joined = None
+    groups = None
+
     class Role(models.TextChoices):
         ADMIN = ("admin", "Administrator")
         USER = ("user", "User")
@@ -26,17 +30,15 @@ class User(BaseModel, AbstractUser):
     last_name = models.CharField(max_length=120, blank=False)
     username = models.CharField(max_length=120, blank=False, unique=True)
     date_of_birth = models.DateField(null=True, default=None)
+    email = models.EmailField(unique=True)
     phone = models.CharField(
         max_length=20, blank=False, unique=True, validators=[phone_is_valid]
     )
-    email = models.EmailField(unique=True)
     profile_pic = models.ImageField(
         null=True, blank=True, upload_to="Users/user/PycharmProjects/profile_pic"
     )
     role = models.CharField(max_length=8, choices=Role.choices, default=Role.USER)
     is_active = models.BooleanField(default=False)
-    last_login = None
-    groups = None
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name", "last_name", "phone", "username"]
@@ -44,6 +46,21 @@ class User(BaseModel, AbstractUser):
     objects = UserManager()
 
     class Meta:
+        db_table = "users"
         verbose_name = "user"
         verbose_name_plural = "users"
+        ordering = ["-id"]
+
+
+class UserAddress(BaseModel):
+    country = models.CharField(max_length=100)
+    region = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    street = models.CharField(max_length=100)
+    block = models.CharField(max_length=10)
+    zipcode = models.CharField(max_length=16)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="address")
+
+    class Meta:
+        db_table = "address"
         ordering = ["-id"]

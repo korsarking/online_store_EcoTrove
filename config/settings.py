@@ -190,6 +190,8 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_FOR_TESTING_ROOT = os.path.join(MEDIA_ROOT, "test")
 
+# SMTP email
+
 email = env.dj_email_url("EMAIL_URL", default="smtp://")
 EMAIL_HOST = email["EMAIL_HOST"]
 EMAIL_PORT = email["EMAIL_PORT"]

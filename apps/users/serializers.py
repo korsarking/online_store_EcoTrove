@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from apps.users.models import UserAddress
 
 User = get_user_model()
 
@@ -34,3 +35,11 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
+
+
+class UserAddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserAddress
+        fields = "__all__"
+
+        read_only_fields = ["created_at", "updated_at", "user"]

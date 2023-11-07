@@ -16,6 +16,7 @@ django-rest-authtoken==2.1.4
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.3.0
 djoser==2.2.0
+drf_util==1.0.17
 drf-yasg==1.21.7
 dulwich==0.21.6
 environs==9.5.0
