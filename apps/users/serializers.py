@@ -37,6 +37,12 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         return instance
 
 
+class UserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = "__all__"
+
+
 class UserAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAddress

@@ -20,6 +20,8 @@ drf_util==1.0.17
 drf-yasg==1.21.7
 dulwich==0.21.6
 environs==9.5.0
+factory_boy==3.3.0
+faker==19.13.0
 filelock==3.12.4
 idna==3.4
 importlib-metadata==6.8.0

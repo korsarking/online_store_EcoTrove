@@ -109,6 +109,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": env.int("DEFAULT_PAGINATION_PAGE_SIZE"),
 }
@@ -137,6 +138,7 @@ DJOSER = {
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
     "SERIALIZERS": {
         "user_create": "apps.users.serializers.UserRegisterSerializer",
+        "user_list": "apps.users.serializers.UserRegisterSerializer",
     },
 }
 
