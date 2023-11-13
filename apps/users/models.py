@@ -17,17 +17,13 @@ def phone_is_valid(value: str):
         raise ValidationError("invalid phone number.")
 
 
-class User(BaseModel, AbstractUser):
-    last_login = None
+class User(AbstractUser, BaseModel):
     date_joined = None
-    groups = None
 
     class Role(models.TextChoices):
         ADMIN = ("admin", "Administrator")
         USER = ("user", "User")
 
-    first_name = models.CharField(max_length=120, blank=False)
-    last_name = models.CharField(max_length=120, blank=False)
     username = models.CharField(max_length=120, blank=False, unique=True)
     date_of_birth = models.DateField(null=True, default=None)
     email = models.EmailField(unique=True)
@@ -59,8 +55,8 @@ class UserAddress(BaseModel):
     street = models.CharField(max_length=100)
     block = models.CharField(max_length=10)
     zipcode = models.CharField(max_length=16)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="address")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="addresses")
 
     class Meta:
-        db_table = "address"
+        db_table = "addresses"
         ordering = ["-id"]

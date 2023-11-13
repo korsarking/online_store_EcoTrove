@@ -27,7 +27,7 @@ class UserTestCase(APITestCase):
             "is_active": False,
         }
 
-        response = self.client.post(reverse("user-list"), data=data)
+        response = self.client.post(reverse("users:user-list"), data=data)
         self.assertEqual(HTTP_201_CREATED, response.status_code)
 
         user = User.objects.get(email=data["email"])
@@ -40,7 +40,7 @@ class UserTestCase(APITestCase):
 
         self.client.force_authenticate(user=user)
 
-        response = self.client.get(reverse("user-list"))
+        response = self.client.get(reverse("users:user-list"))
         self.assertEqual(response.status_code, HTTP_200_OK)
         self.assertEqual(response.data.get("count"), User.objects.count())
         response_full_name = f"{response.data['results'][0]['first_name']} {response.data['results'][0]['last_name']}"

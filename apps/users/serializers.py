@@ -27,14 +27,11 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         return f"{obj.first_name} {obj.last_name}"
 
     def create(self, validated_data):
-        password = validated_data.pop("password", None)
-        instance = self.Meta.model(**validated_data)
+        user = super().create(validated_data)
 
-        if password is not None:
-            instance.set_password(password)
-
-        instance.save()
-        return instance
+        user.set_password(validated_data["password"])
+        user.save()
+        return user
 
 
 class UserListSerializer(serializers.ModelSerializer):

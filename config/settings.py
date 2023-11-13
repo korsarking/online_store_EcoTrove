@@ -109,9 +109,8 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
-    "TEST_REQUEST_DEFAULT_FORMAT": "json",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": env.int("DEFAULT_PAGINATION_PAGE_SIZE"),
+    "PAGE_SIZE": 15,
 }
 
 SWAGGER_SETTINGS = {
@@ -175,7 +174,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = env.str("TIME_ZONE")
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -190,7 +189,6 @@ STATIC_URL = "static/"
 MEDIA_URL = "media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_FOR_TESTING_ROOT = os.path.join(MEDIA_ROOT, "test")
 
 # SMTP email
 

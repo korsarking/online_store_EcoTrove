@@ -10,6 +10,8 @@ router.register(r"address", UserAddressViewSet, basename="address")
 
 urlpatterns = router.urls
 
+app_name = "users"
+
 urlpatterns += [
     path(r"auth/", include("djoser.urls")),
     path(r"auth/", include("djoser.urls.jwt")),
