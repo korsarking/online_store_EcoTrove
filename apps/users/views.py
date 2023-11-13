@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from drf_util.utils import gt
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
@@ -16,14 +15,15 @@ class UserAddressViewSet(ModelViewSet):
     filterset_fields = ["country", "region", "city"]
 
     def get_queryset(self):
-        qs = self.queryset
+        queryset = super().get_queryset()
 
         if hasattr(self, "swagger_fake_view"):
-            qs = self.queryset.none()
+            return self.queryset.none()
 
-        if gt(self.request.user, "role") == User.Role.USER:
+        if self.request.user.role == User.Role.USER:
             qs = self.queryset.filter(user=self.request.user)
-        return qs
+            return qs
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

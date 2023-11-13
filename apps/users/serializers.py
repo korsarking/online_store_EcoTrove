@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+
 from apps.users.models import UserAddress
 
 User = get_user_model()
@@ -13,14 +14,16 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = "__all__"
         read_only_fields = [
+            "full_name",
+            "last_login",
             "is_superuser",
             "is_staff",
             "is_active",
             "date_joined",
             "role",
+            "groups",
             "user_permissions",
         ]
-        extra_kwargs = {"full_name": {"read_only": True}}
 
     @staticmethod
     def get_full_name(obj):

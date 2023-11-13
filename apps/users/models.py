@@ -18,7 +18,7 @@ def phone_is_valid(value: str):
 
 
 class User(AbstractUser, BaseModel):
-    date_joined = None
+    last_login = None
 
     class Role(models.TextChoices):
         ADMIN = ("admin", "Administrator")
