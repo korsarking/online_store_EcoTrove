@@ -43,6 +43,12 @@ class UserListSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class UserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "phone", "username", "date_of_birth",)
+
+
 class UserAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAddress

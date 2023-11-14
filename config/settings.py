@@ -137,7 +137,8 @@ DJOSER = {
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
     "SERIALIZERS": {
         "user_create": "apps.users.serializers.UserRegisterSerializer",
-        "user_list": "apps.users.serializers.UserRegisterSerializer",
+        "user_list": "apps.users.serializers.UserListSerializer",
+        "user": "apps.users.serializers.UserUpdateSerializer"
     },
 }
 

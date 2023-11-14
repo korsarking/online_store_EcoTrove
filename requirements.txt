@@ -6,6 +6,7 @@ certifi==2023.7.22
 charset-normalizer==3.3.2
 cleo==2.1.0
 colorama==0.4.6
+coverage==7.3.2
 crashtest==0.4.1
 distlib==0.3.7
 dj_email_url==1.0.6
