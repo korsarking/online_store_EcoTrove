@@ -1,5 +1,3 @@
-from unittest.mock import patch
-
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.tokens import default_token_generator
 from djoser import utils
@@ -13,7 +11,6 @@ from rest_framework.test import APITestCase
 
 from apps.users.factories import UserFactory
 from apps.users.models import User
-from apps.users.models import UserAddress
 
 faker = Faker()
 
@@ -109,110 +106,11 @@ class UserTestCase(APITestCase):
 
     def test_update_user_data_by_id(self):
         data = {
-            "username": faker.word(),
-            "date_of_birth": faker.date()
+            "username": faker.word()
         }
         self.client.force_authenticate(user=self.active_user)
         self.assertNotEqual(data["username"], self.active_user.username)
-        self.assertNotEqual(data["date_of_birth"], self.active_user.date_of_birth)
 
         response = self.client.patch(reverse("users:user-detail", kwargs={"id": self.active_user.id}), data=data)
         self.assertEqual(response.status_code, HTTP_200_OK)
         self.assertEqual(data["username"], response.data["username"])
-        self.assertEqual(data["date_of_birth"], response.data["date_of_birth"])
-
-
-class TestUserAddress(APITestCase):
-
-    def setUp(self):
-        self.user = UserFactory.create(password=make_password("StrongPassword"), is_active=True)
-        self.user_admin = UserFactory.create(password=make_password("StrongPassword"), is_active=True, role="admin")
-        self.user_address = UserAddress.objects.create(
-            country="USA",
-            region="Pacific Northwest",
-            city="Seattle",
-            street="Broadway",
-            block="41",
-            zipcode="98101",
-            user=self.user
-        )
-        self.user_address2 = UserAddress.objects.create(user=self.user)
-
-    def test_user_address_list(self):
-        self.client.force_authenticate(self.user)
-
-        response = self.client.get(reverse("users:address-list"))
-
-        self.assertEqual(response.status_code, HTTP_200_OK)
-        self.assertEqual(len(
-            response.data["results"]),
-            UserAddress.objects.filter(user=self.user).count()
-        )
-
-    def test_user_address_create(self):
-        self.client.force_authenticate(self.user)
-        data = {
-            "country": "Republic of Moldova",
-            "region": "Municipality of Chisinau",
-            "city": "Chisinau",
-            "street": "Stefan Cel Mare",
-            "block": "33",
-            "zipcode": "4650"
-        }
-        response = self.client.post(reverse("users:address-list"), data)
-
-        self.assertEqual(response.status_code, HTTP_201_CREATED)
-
-    def test_user_address_update(self):
-        self.client.force_authenticate(self.user)
-
-        new_country = "Germany"
-        new_region = "Hamburg"
-
-        data = {
-            "country": new_country,
-            "region": new_region,
-        }
-
-        response = self.client.patch(reverse("users:address-detail", kwargs={"pk": self.user_address.id}), data)
-
-        self.assertEqual(response.status_code, HTTP_200_OK)
-
-    def test_user_address_delete(self):
-        self.client.force_authenticate(self.user)
-
-        response = self.client.delete(reverse("users:address-detail", kwargs={"pk": self.user_address.id}))
-
-        self.assertEqual(response.status_code, HTTP_204_NO_CONTENT)
-
-    def test_admin_address_update(self):
-        self.client.force_authenticate(self.user_admin)
-
-        address = UserAddress.objects.create(
-            country="United kingdom",
-            region="England",
-            city="London",
-            street="Baker Street",
-            block="221b",
-            zipcode="48",
-            user=self.user
-        )
-
-        new_country = "Greece"
-        new_region = "Athene"
-
-        data = {
-            "country": new_country,
-            "region": new_region,
-        }
-
-        response = self.client.patch(reverse("users:address-detail", kwargs={"pk": address.id}), data)
-
-        self.assertEqual(response.status_code, HTTP_200_OK)
-
-    def test_admin_address_delete(self):
-        self.client.force_authenticate(self.user_admin)
-
-        response = self.client.delete(reverse("users:address-detail", kwargs={"pk": self.user_address.id}))
-
-        self.assertEqual(response.status_code, HTTP_204_NO_CONTENT)

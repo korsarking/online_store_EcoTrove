@@ -1,8 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from apps.users.models import UserAddress
-
 User = get_user_model()
 
 
@@ -23,6 +21,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             "role",
             "groups",
             "user_permissions",
+            "addresses",
         ]
 
     @staticmethod
@@ -35,23 +34,3 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data["password"])
         user.save()
         return user
-
-
-class UserListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = "__all__"
-
-
-class UserUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ("first_name", "last_name", "phone", "username", "date_of_birth",)
-
-
-class UserAddressSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserAddress
-        fields = "__all__"
-
-        read_only_fields = ["created_at", "updated_at", "user"]

@@ -4,6 +4,7 @@ from django.contrib.auth.models import UserManager
 from django.db import models
 from rest_framework.exceptions import ValidationError
 
+from apps.addresses.models import Address
 from apps.common.models import BaseModel
 
 
@@ -36,6 +37,7 @@ class User(AbstractUser, BaseModel):
     role = models.CharField(max_length=8, choices=Role.choices, default=Role.USER)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=True)
+    addresses = models.ManyToManyField(Address, blank=True, related_name="users")
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name", "last_name", "phone", "username"]
@@ -46,18 +48,4 @@ class User(AbstractUser, BaseModel):
         db_table = "users"
         verbose_name = "user"
         verbose_name_plural = "users"
-        ordering = ["-id"]
-
-
-class UserAddress(BaseModel):
-    country = models.CharField(max_length=100)
-    region = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    street = models.CharField(max_length=100)
-    block = models.CharField(max_length=10)
-    zipcode = models.CharField(max_length=16)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="addresses")
-
-    class Meta:
-        db_table = "addresses"
         ordering = ["-id"]

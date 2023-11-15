@@ -23,7 +23,6 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = "users.User"
 
 # Application definition
-
 INSTALLED_APPS = [
     # Default Django apps
     "django.contrib.admin",
@@ -43,10 +42,12 @@ INSTALLED_APPS = [
     "djoser",
     # Local apps
     "apps.users",
+    "apps.addresses",
     "apps.common",
     "apps.orders",
     "apps.products",
 ]
+
 
 MIDDLEWARE = [
     # Default Django middleware
@@ -135,11 +136,7 @@ DJOSER = {
     "SEND_CONFIRMATION_EMAIL": True,
     "USERNAME_CHANGED_EMAIL_CONFIRMATION": True,
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
-    "SERIALIZERS": {
-        "user_create": "apps.users.serializers.UserRegisterSerializer",
-        "user_list": "apps.users.serializers.UserListSerializer",
-        "user": "apps.users.serializers.UserUpdateSerializer"
-    },
+    "SERIALIZERS": {"user_create": "apps.users.serializers.UserRegisterSerializer"},
 }
 
 # Database
