@@ -32,7 +32,7 @@ class User(AbstractUser, BaseModel):
         max_length=20, blank=False, unique=True, validators=[phone_is_valid]
     )
     profile_pic = models.ImageField(
-        null=True, blank=True, upload_to="Users/user/PycharmProjects/profile_pic"
+        null=True, blank=True, upload_to="users/profile_pic"
     )
     role = models.CharField(max_length=8, choices=Role.choices, default=Role.USER)
     is_active = models.BooleanField(default=False)
