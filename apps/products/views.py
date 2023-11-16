@@ -7,9 +7,9 @@ from apps.common.permissions import IsAdminOrOwner
 from apps.common.permissions import ReadOnly
 from apps.products.models import Category
 from apps.products.models import Product
+from apps.products.models import SubCategory
 from apps.products.models import ProductAttachments
 from apps.products.models import ProductReview
-from apps.products.models import SubCategory
 from apps.products.serializers import CategorySerializer
 from apps.products.serializers import ProductAttachmentsSerializer
 from apps.products.serializers import ProductReviewSerializer

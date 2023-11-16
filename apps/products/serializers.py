@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
 from apps.products.models import Category
+from apps.products.models import SubCategory
 from apps.products.models import Product
 from apps.products.models import ProductAttachments
 from apps.products.models import ProductReview
-from apps.products.models import SubCategory
 
 
 class ProductAttachmentsSerializer(serializers.ModelSerializer):
