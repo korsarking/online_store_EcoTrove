@@ -13,6 +13,8 @@ from apps.users.serializers import ProfileImageSerializer
 class FileUploadView(GenericViewSet, RetrieveModelMixin, UpdateModelMixin):
     serializer_class = ProfileImageSerializer
     queryset = User.objects.all()
-    permission_classes = (IsAuthenticated, IsAdminOrItself | ReadOnly,)
+    permission_classes = (
+        IsAuthenticated,
+        IsAdminOrItself | ReadOnly,
+    )
     parser_classes = (MultiPartParser,)
-

@@ -34,7 +34,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("apps.users.urls")),
     path("", include("apps.addresses.urls")),
-    path("", include("apps.common.urls")),
-    path("", include("apps.products.urls")),
+    path("products/", include("apps.products.urls")),
     path("", include("apps.orders.urls")),
+    path("", include("apps.common.urls")),
 ]
