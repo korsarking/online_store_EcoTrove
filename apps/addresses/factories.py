@@ -13,5 +13,5 @@ class AddressFactory(DjangoModelFactory):
     region = factory.Faker("word")
     city = factory.Faker("word")
     street = factory.Faker("word")
-    block = random.randint(1, 999)
+    block = random.randint(1, 99)
     zipcode = random.randint(1, 9999)

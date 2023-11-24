@@ -58,9 +58,7 @@ class TestAddress(APITestCase):
             "country": new_country,
             "region": new_region,
         }
-        self.assertNotEqual(
-            data["country"], Address.objects.get(id=self.user.id).country
-        )
+        self.assertNotEqual(data["country"], Address.objects.first().country)
 
         response = self.client.patch(
             reverse("addresses:address-detail", kwargs={"pk": self.user_address.id}),
@@ -68,7 +66,7 @@ class TestAddress(APITestCase):
         )
 
         self.assertEqual(response.status_code, HTTP_200_OK)
-        self.assertEqual(data["country"], Address.objects.get(id=self.user.id).country)
+        self.assertEqual(data["country"], Address.objects.first().country)
 
     def test_user_address_delete(self):
         self.client.force_authenticate(self.user)

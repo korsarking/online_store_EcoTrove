@@ -4,7 +4,7 @@ import factory
 from factory.django import DjangoModelFactory
 
 from apps.products.models import Category
-from apps.products.models import Product
+from apps.products.models import Products
 from apps.products.models import ProductAttachments
 from apps.products.models import ProductReview
 from apps.products.models import SubCategory
@@ -30,7 +30,7 @@ class SubCategoryFactory(DjangoModelFactory):
 
 class ProductFactory(DjangoModelFactory):
     class Meta:
-        model = Product
+        model = Products
 
     deleted_at = factory.Faker("pybool")
     name = factory.Faker("word")

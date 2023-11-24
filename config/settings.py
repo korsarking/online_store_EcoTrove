@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "apps.common",
     "apps.orders",
     "apps.products",
+    "apps.logs",
 ]
 
 
@@ -144,10 +145,18 @@ DJOSER = {
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env.str("DB_NAME"),
+        "USER": env.str("DB_USER"),
+        "PASSWORD": env.str("DB_PASSWORD"),
+        "HOST": env.str("DB_HOST"),
+        "PORT": env.str("DB_PORT"),
+        "TEST": {
+            "NAME": "test_psql_db",
+        },
+    },
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -188,6 +197,11 @@ MEDIA_URL = "media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_FOR_TESTING_ROOT = os.path.join(MEDIA_ROOT, "test")
+
+# Stripe
+
+STRIPE_SECRET_TEST_API_KEY = env("STRIPE_SECRET_TEST_API_KEY")
+STRIPE_ENDPOINT_SECRET = env("STRIPE_ENDPOINT_SECRET")
 
 # SMTP email
 

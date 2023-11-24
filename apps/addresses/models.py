@@ -8,8 +8,8 @@ class Address(BaseModel):
     region = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     street = models.CharField(max_length=100)
-    block = models.CharField(max_length=10)
-    zipcode = models.CharField(max_length=16)
+    block = models.CharField(max_length=1000)
+    zipcode = models.CharField(max_length=10000)
 
     class Meta:
         db_table = "addresses"

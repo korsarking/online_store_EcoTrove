@@ -31,7 +31,7 @@ class SubCategory(BaseModel):
         ordering = ["-id"]
 
 
-class Product(BaseModel):
+class Products(BaseModel):
     deleted_at = models.DateTimeField(auto_now_add=True, null=True)
     name = models.CharField(max_length=255, unique=True)
     details = models.TextField(null=True, default=None)
@@ -55,7 +55,7 @@ class Product(BaseModel):
 
 class ProductReview(BaseModel):
     product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, related_name="reviews"
+        Products, on_delete=models.CASCADE, related_name="reviews"
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
     rating = models.PositiveSmallIntegerField(
@@ -72,7 +72,7 @@ class ProductReview(BaseModel):
 
 class ProductAttachments(BaseModel):
     product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, related_name="attachments"
+        Products, on_delete=models.CASCADE, related_name="attachments"
     )
     attachment = models.ImageField(upload_to="products/attachments")
 
