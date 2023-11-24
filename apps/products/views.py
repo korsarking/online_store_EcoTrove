@@ -6,7 +6,7 @@ from apps.common.permissions import IsAdmin
 from apps.common.permissions import IsAdminOrOwner
 from apps.common.permissions import ReadOnly
 from apps.products.models import Category
-from apps.products.models import Product
+from apps.products.models import Products
 from apps.products.models import SubCategory
 from apps.products.models import ProductAttachments
 from apps.products.models import ProductReview
@@ -19,7 +19,7 @@ from apps.products.serializers import SubCategorySerializer
 
 class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
-    queryset = Product.objects.all()
+    queryset = Products.objects.all()
     permission_classes = (IsAuthenticated, IsAdmin | ReadOnly)
     filterset_fields = ("sub_category",)
 

@@ -1,5 +1,7 @@
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
-router = DefaultRouter(trailing_slash=False)
+from apps.common.views import StripeWebhookView
 
-urlpatterns = router.urls
+urlpatterns = [
+    path("webhooks/stripe", StripeWebhookView.as_view(), name="webhooks-stripe")
+]
